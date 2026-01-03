@@ -97,7 +97,12 @@ input_df = pd.read_excel("input.xlsx", sheet_name="Input_Data", engine="openpyxl
 
 results = []
 
-for _, row in input_df.iterrows():
+for index, row in input_df.iterrows():
+
+    # skip completed rows
+    if "ProcessStatus" in row and row["ProcessStatus"] == "DONE":
+        continue
+
     try:
         account_id = search_account(row["TestAccountName"])
 
